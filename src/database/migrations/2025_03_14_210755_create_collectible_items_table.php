@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Inventory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->unsignedDecimal('price', 8 ,2);
             $table->string('latitude');
             $table->string('longitude');
+            $table->foreignIdFor(Inventory::class);
             $table->timestamps();
         });
     }
