@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Explorer::class);
+            $table->foreignIdFor(Explorer::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

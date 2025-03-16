@@ -43,7 +43,10 @@ class ExplorerController extends Controller
      */
     public function show(Explorer $explorer)
     {
-        return $explorer;
+
+        return response()->json([
+            $explorer->load('inventory.collectibleItem')
+        ]);
     }
 
     /**

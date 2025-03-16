@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CollectibleItemController;
 use App\Http\Controllers\ExplorerController;
+use App\Http\Controllers\InventoryController;
+use App\Models\CollectibleItem;
 use App\Models\Explorer;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
@@ -21,4 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('explorers', ExplorerController::class);
+Route::apiResource('explorers', ExplorerController::class)->except(['destroy']);
+Route::post('explorers/{explorer}/inventory', [InventoryController::class, 'store']);
+Route::get('explorers/{explorer}/inventory', [InventoryController::class, 'index']);
+
+Route::apiResource('explorers.collectibleItems', CollectibleItemController::class)->scoped()->except(['destroy', 'update']);
