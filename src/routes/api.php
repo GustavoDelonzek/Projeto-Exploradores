@@ -28,4 +28,3 @@ Route::apiResource('explorers', ExplorerController::class)->except(['destroy']);
 Route::post('explorers/{explorer}/inventory', [InventoryController::class, 'store']);
 Route::get('explorers/{explorer}/inventory', [InventoryController::class, 'index']);
 
-Route::apiResource('explorers.collectibleItems', CollectibleItemController::class)->scoped()->except(['destroy', 'update']);
