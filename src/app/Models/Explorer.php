@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Explorer extends Model
@@ -17,9 +18,9 @@ class Explorer extends Model
         'longitude'
     ];
 
-    public function inventory(): HasOne
+    public function inventory(): HasMany
     {
-        return $this->hasOne(Inventory::class);
+        return $this->HasMany(Inventory::class);
     }
 
 

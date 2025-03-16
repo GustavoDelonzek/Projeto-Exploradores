@@ -12,7 +12,8 @@ class Inventory extends Model
     use HasFactory;
 
     protected $fillable = [
-        'explorer_id'
+        'explorer_id',
+        'collectible_item_id'
     ];
 
     public function explorer():BelongsTo
@@ -20,8 +21,8 @@ class Inventory extends Model
         return $this->belongsTo(Explorer::class);
     }
 
-    public function collectibleItem():HasMany
+    public function collectibleItem():BelongsTo
     {
-        return $this->hasMany(CollectibleItem::class);
+        return $this->BelongsTo(CollectibleItem::class);
     }
 }

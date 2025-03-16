@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\CollectibleItem;
+use App\Models\Explorer;
+use App\Models\Trade;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,8 +17,9 @@ return new class extends Migration
     {
         Schema::create('trade_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Table::class);
+            $table->foreignIdFor(Trade::class);
             $table->foreignIdFor(CollectibleItem::class);
+            $table->foreignIdFor(Explorer::class);
             $table->timestamps();
         });
     }

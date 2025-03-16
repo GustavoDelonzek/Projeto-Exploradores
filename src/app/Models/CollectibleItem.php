@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class CollectibleItem extends Model
 {
@@ -14,12 +15,11 @@ class CollectibleItem extends Model
         'name',
         'price',
         'latitude',
-        'longitude',
-        'inventory_id'
+        'longitude'
     ];
 
-    public function inventory(): BelongsTo
+    public function inventory(): BelongsToMany
     {
-        return $this->belongsTo(Inventory::class);
+        return $this->BelongsToMany(Inventory::class);
     }
 }

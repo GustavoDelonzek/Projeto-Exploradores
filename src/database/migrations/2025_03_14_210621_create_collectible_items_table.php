@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedDecimal('price', 8 ,2);
             $table->string('latitude');
             $table->string('longitude');
-            $table->foreignIdFor(Inventory::class);
             $table->timestamps();
         });
     }

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('trades', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('explorer_to_id')->constrained('explorers')->onDelete('cascade');
+            $table->foreignId('explorer_to_id')->constrained('explorers')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('explorer_for_id')->constrained('explorers')->onDelete('cascade');
-            $table->decimal('value', 8, 2);
+            $table->string('status');
             $table->timestamps();
         });
     }

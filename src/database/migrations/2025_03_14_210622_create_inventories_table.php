@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\CollectibleItem;
 use App\Models\Explorer;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -16,6 +17,7 @@ return new class extends Migration
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Explorer::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(CollectibleItem::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

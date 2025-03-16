@@ -12,6 +12,12 @@ class TradeItem extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'trade_id',
+        'collectible_item_id',
+        'explorer_id'
+    ];
+
     public function trade(): BelongsTo
     {
         return $this->belongsTo(Trade::class);
@@ -20,6 +26,11 @@ class TradeItem extends Model
     public function collectibleItem():HasOne
     {
         return $this->hasOne(CollectibleItem::class);
+    }
+
+    public function explorer(): BelongsTo
+    {
+        return $this->belongsTo(Explorer::class);
     }
 
 }

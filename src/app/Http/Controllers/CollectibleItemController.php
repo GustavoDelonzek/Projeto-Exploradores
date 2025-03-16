@@ -7,19 +7,12 @@ use App\Models\Explorer;
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 
-class InventoryController extends Controller
+class CollectibleItemController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Explorer $explorer)
-    {
-        return $explorer->inventory->collectibleItem;
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+   
     public function store(Request $request, Explorer $explorer)
     {
         $post = CollectibleItem::create([
@@ -28,12 +21,16 @@ class InventoryController extends Controller
                 'price' => 'required',
                 'latitude' => 'required|string',
                 'longitude' => 'required|string'
-            ]),
-            'inventory_id' => $explorer->inventory->id
+            ])
+        ]);
+
+        $explorer->inventory()->create([
+            'explorer_id' => $explorer->id,
+            'collectible_item_id' => $post->id
         ]);
 
         return $post;
-
     }
+
 
 }

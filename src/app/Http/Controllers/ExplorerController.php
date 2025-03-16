@@ -31,9 +31,6 @@ class ExplorerController extends Controller
             ])]
         );
 
-        Inventory::create([
-            'explorer_id' => $explorador->id
-        ]);
 
         return response(status: 204);
     }
