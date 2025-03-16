@@ -35,6 +35,13 @@ class TradeController extends Controller
                 throw new Exception('trade failed! Item already in inventory!');
             }
 
+            $explorer = ($item['explorer_id'] == $explorerTo->id) ? $explorerTo : $explorerFor;
+            $hasItem = $explorer->inventory()->where('collectible_item_id', $item['collectible_item_id'])->exists();
+
+            if(!$hasItem){
+                throw new Exception('Trade failed! Item not in inventory an explorer!');
+            }
+
             $tradeItem = TradeItem::create([
               'trade_id' => $trade->id,
               'collectible_item_id' => $item['collectible_item_id'],
@@ -46,8 +53,8 @@ class TradeController extends Controller
         $itemsExplorerTo = $todos->where('explorer_id', $explorerTo->id);
         $itemsExplorerFor = $todos->where('explorer_id', $explorerFor->id);
 
-        $itemsExplorerTo = CollectibleItem::where('id', $itemsExplorerTo->first()->collectible_item_id)->get();
-        $itemsExplorerFor = CollectibleItem::where('id', $itemsExplorerFor->first()->collectible_item_id)->get();
+        $itemsExplorerTo = CollectibleItem::whereIn('id', $itemsExplorerTo->pluck('collectible_item_id'))->get();
+        $itemsExplorerFor = CollectibleItem::whereIn('id', $itemsExplorerFor->pluck('collectible_item_id'))->get();
 
 
         if($this->valueTrade($itemsExplorerTo) == $this->valueTrade($itemsExplorerFor)){
@@ -90,7 +97,6 @@ class TradeController extends Controller
         'status' => 400
       ]);
     }
-
     }
 
   public function valueTrade($items){
@@ -98,6 +104,7 @@ class TradeController extends Controller
     foreach($items as $item){
         $valueTotal += $item->price;
     }
+
     return intval($valueTotal);
   }
 }
