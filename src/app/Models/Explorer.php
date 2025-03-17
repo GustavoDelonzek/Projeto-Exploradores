@@ -23,5 +23,10 @@ class Explorer extends Model
         return $this->HasMany(Inventory::class);
     }
 
+    public function location():HasMany
+    {
+        return $this->hasMany(Location::class);
+    }
+
 
 }

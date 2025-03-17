@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Explorer::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Explorer::class);
             $table->string('latitude');
             $table->string('longitude');
             $table->timestamps();

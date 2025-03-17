@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Explorer;
 use App\Models\Inventory;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -31,8 +32,14 @@ class ExplorerController extends Controller
             ])]
         );
 
+        $location = Location::create([
+            'explorer_id' => $explorador->id,
+            'latitude' => $explorador->latitude,
+            'longitude' => $explorador->longitude
+        ]);
 
-        return response(status: 204);
+
+        return response(status: 201);
     }
 
     /**
@@ -57,6 +64,12 @@ class ExplorerController extends Controller
                 'longitude' => 'sometimes|string'
             ])
         );
+
+        $location = Location::create([
+            'explorer_id' => $explorer->id,
+            'latitude' => $explorer->latitude,
+            'longitude' => $explorer->longitude
+        ]);
 
         return $explorer;
     }
