@@ -23,7 +23,7 @@ class TradeItem extends Model
         return $this->belongsTo(Trade::class);
     }
 
-    public function collectibleItem():HasOne
+    public function collectible_item():HasOne
     {
         return $this->hasOne(CollectibleItem::class);
     }

@@ -49,7 +49,7 @@ class ExplorerController extends Controller
     {
 
         return response()->json([
-            $explorer->load('inventory.collectibleItem')
+            $explorer->load('collectible_item')
         ]);
     }
 

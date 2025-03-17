@@ -26,21 +26,16 @@ class TradeController extends Controller
         $explorerFor = Explorer::findOrFail($trade->explorer_for_id);
 
         foreach($request->items as $item){
-            if($item['explorer_id'] != $explorerTo->id && $item['explorer_id'] != $explorerFor->id){
-                $trade->update(['status' => 'failed']);
-                throw new Exception('trade failed! Item not belong any explorer!');
+            $collectibleItem = CollectibleItem::findOrFail($item['collectible_item_id']);
+
+            if($collectibleItem->explorer_id != $explorerTo->id && $collectibleItem->explorer_id != $explorerFor->id){
+                throw new Exception('trade failed! Collectible item not belong any explorer!');
             }
 
-            if(($explorerTo->inventory()->where('collectible_item_id', $item['collectible_item_id'])->exists() && $item['explorer_id'] == $explorerFor->id) || ($explorerFor->inventory()->where('collectible_item_id', $item['collectible_item_id'])->exists() && $item['explorer_id'] == $explorerTo->id)){
-                throw new Exception('trade failed! Item already in inventory!');
+            if($collectibleItem->explorer_id != $item['explorer_id']){
+                throw new Exception('trade failed! Collectible item not belong to explorer!');
             }
 
-            $explorer = ($item['explorer_id'] == $explorerTo->id) ? $explorerTo : $explorerFor;
-            $hasItem = $explorer->inventory()->where('collectible_item_id', $item['collectible_item_id'])->exists();
-
-            if(!$hasItem){
-                throw new Exception('Trade failed! Item not in inventory an explorer!');
-            }
 
             $tradeItem = TradeItem::create([
               'trade_id' => $trade->id,
@@ -58,25 +53,14 @@ class TradeController extends Controller
 
 
         if($this->valueTrade($itemsExplorerTo) == $this->valueTrade($itemsExplorerFor)){
-            foreach($itemsExplorerTo as $item){
-                $explorerTo->inventory()->where('collectible_item_id', $item->id)->delete();
-            }
-            foreach($itemsExplorerFor as $item){
-                $explorerFor->inventory()->where('collectible_item_id', $item->id)->delete();
-            }
+           foreach($itemsExplorerTo as $item){
+            $item->update(['explorer_id' => $explorerFor->id]);
+          }
 
-            foreach($itemsExplorerTo as $item){
-                $explorerFor->inventory()->create([
-                    'explorer_id' => $explorerFor->id,
-                    'collectible_item_id' => $item->id
-                ]);
-            }
-            foreach($itemsExplorerFor as $item){
-                $explorerTo->inventory()->create([
-                    'explorer_id' => $explorerTo->id,
-                    'collectible_item_id' => $item->id
-                ]);
-            }
+          foreach($itemsExplorerFor as $item){
+            $item->update(['explorer_id' => $explorerTo->id]);
+          }
+
 
           $trade->update(
             ['status' => 'completed']

@@ -19,19 +19,17 @@ class CollectibleItemController extends Controller
 
     public function store(Request $request, Explorer $explorer)
     {
+
         $post = CollectibleItem::create([
             ...$request->validate([
                 'name' => 'required|string|max:80',
                 'price' => 'required',
                 'latitude' => 'required|string',
                 'longitude' => 'required|string'
-            ])
+            ]),
+            'explorer_id' => $explorer->id
         ]);
 
-        $explorer->inventory()->create([
-            'explorer_id' => $explorer->id,
-            'collectible_item_id' => $post->id
-        ]);
 
         return $post;
     }

@@ -15,11 +15,12 @@ class CollectibleItem extends Model
         'name',
         'price',
         'latitude',
-        'longitude'
+        'longitude',
+        'explorer_id'
     ];
 
-    public function inventory(): BelongsToMany
+    public function explorer(): BelongsTo
     {
-        return $this->BelongsToMany(Inventory::class);
+        return $this->BelongsTo(Explorer::class);
     }
 }

@@ -18,9 +18,9 @@ class Explorer extends Model
         'longitude'
     ];
 
-    public function inventory(): HasMany
+    public function collectible_item(): HasMany
     {
-        return $this->HasMany(Inventory::class);
+        return $this->hasMany(CollectibleItem::class);
     }
 
     public function location():HasMany
