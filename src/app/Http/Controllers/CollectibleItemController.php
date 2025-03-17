@@ -12,7 +12,11 @@ class CollectibleItemController extends Controller
     /**
      * Display a listing of the resource.
      */
-   
+
+    public function index(){
+        return CollectibleItem::all();
+    }
+
     public function store(Request $request, Explorer $explorer)
     {
         $post = CollectibleItem::create([

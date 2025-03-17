@@ -27,5 +27,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('explorers', ExplorerController::class)->except(['destroy']);
-Route::apiResource('explorers.collectible-items', CollectibleItemController::class)->scoped()->except(['destroy', 'update', 'show', 'index']);
+Route::post('explorers/{explorer}/collectible-items', [CollectibleItemController::class, 'store']);
+Route::get('collectible-items', [CollectibleItemController::class, 'index']);
 Route::post('explorers/trade', [TradeController::class, 'trade']);
