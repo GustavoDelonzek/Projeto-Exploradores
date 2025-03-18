@@ -14,7 +14,7 @@ class CollectibleItemController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:sanctum')->except(['index']);
+        $this->middleware('auth:sanctum')->except(['index', 'relatory']);
     }
 
     public function index(){
@@ -37,6 +37,15 @@ class CollectibleItemController extends Controller
 
 
         return $post;
+    }
+
+    public function relatory(){
+        $averageItems = CollectibleItem::avg('price');
+        $valueHundred = CollectibleItem::where('price', '>', 100)->count();
+        return response()->json([
+            'averageItems' => $averageItems,
+            'biggerThanHundred' => $valueHundred
+        ]);
     }
 
 

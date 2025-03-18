@@ -35,7 +35,7 @@ Route::post('register', [AuthController::class, 'register']);
 
 
 Route::apiResource('explorers', UserController::class)->except(['destroy', 'store']);
-
+Route::get('relatory', [CollectibleItemController::class, 'relatory']);
 Route::post('explorers/{explorer}/collectible-items', [CollectibleItemController::class, 'store']);
 Route::get('explorers/{explorer}/history', [LocationController::class, 'index']);
 Route::get('collectible-items', [CollectibleItemController::class, 'index']);
