@@ -18,7 +18,7 @@ class Location extends Model
     ];
 
     public function user(): BelongsTo{
-        return $this->BelongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
 

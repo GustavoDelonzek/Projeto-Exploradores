@@ -35,6 +35,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'email_verified_at'
     ];
 
     /**
@@ -53,7 +54,7 @@ class User extends Authenticatable
         return $this->hasMany(CollectibleItem::class);
     }
 
-    public function location():HasMany
+    public function location(): HasMany
     {
         return $this->hasMany(Location::class);
     }

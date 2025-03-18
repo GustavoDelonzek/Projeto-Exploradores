@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Explorer;
-use App\Models\Inventory;
 use App\Models\Location;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Symfony\Contracts\Service\Attribute\Required;
 
-class ExplorerController extends Controller
+class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -19,13 +21,7 @@ class ExplorerController extends Controller
         return User::all();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-       
-    }
+
 
     /**
      * Display the specified resource.
@@ -43,6 +39,8 @@ class ExplorerController extends Controller
      */
     public function update(Request $request, User $explorer)
     {
+        $this->authorize('update', $explorer);
+
         $explorer->update(
             $request->validate([
                 'latitude' => 'sometimes|string',
@@ -62,9 +60,9 @@ class ExplorerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $explorer)
+    public function destroy(User $user)
     {
-        $explorer->delete();
+        $user->delete();
 
         return response()->json([
             'message' => "deleted explorer successfully!",

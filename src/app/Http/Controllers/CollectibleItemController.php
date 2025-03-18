@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CollectibleItem;
-use App\Models\Explorer;
-use App\Models\Inventory;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -14,12 +12,18 @@ class CollectibleItemController extends Controller
      * Display a listing of the resource.
      */
 
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum')->except(['index']);
+    }
+
     public function index(){
         return CollectibleItem::all();
     }
 
-    public function store(Request $request, User $user)
+    public function store(Request $request, User $explorer)
     {
+        $this->authorize('create', $explorer);
 
         $post = CollectibleItem::create([
             ...$request->validate([
@@ -28,7 +32,7 @@ class CollectibleItemController extends Controller
                 'latitude' => 'required|string',
                 'longitude' => 'required|string'
             ]),
-            'user_id' => $user->id
+            'user_id' => $explorer->id
         ]);
 
 
