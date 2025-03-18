@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('trades', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('explorer_to_id')->constrained('explorers')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('explorer_for_id')->constrained('explorers')->onDelete('cascade');
+            $table->foreignId('user_to_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_for_id')->constrained('users')->onDelete('cascade');
             $table->string('status');
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ class TradeItem extends Model
     protected $fillable = [
         'trade_id',
         'collectible_item_id',
-        'explorer_id'
+        'user_id'
     ];
 
     public function trade(): BelongsTo
@@ -30,7 +30,7 @@ class TradeItem extends Model
 
     public function explorer(): BelongsTo
     {
-        return $this->belongsTo(Explorer::class);
+        return $this->belongsTo(User::class);
     }
 
 }

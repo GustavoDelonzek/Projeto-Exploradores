@@ -16,11 +16,11 @@ class CollectibleItem extends Model
         'price',
         'latitude',
         'longitude',
-        'explorer_id'
+        'user_id'
     ];
 
-    public function explorer(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->BelongsTo(Explorer::class);
+        return $this->BelongsTo(User::class);
     }
 }

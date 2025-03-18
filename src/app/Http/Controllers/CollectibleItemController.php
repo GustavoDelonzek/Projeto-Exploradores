@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\CollectibleItem;
 use App\Models\Explorer;
 use App\Models\Inventory;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CollectibleItemController extends Controller
@@ -17,7 +18,7 @@ class CollectibleItemController extends Controller
         return CollectibleItem::all();
     }
 
-    public function store(Request $request, Explorer $explorer)
+    public function store(Request $request, User $user)
     {
 
         $post = CollectibleItem::create([
@@ -27,7 +28,7 @@ class CollectibleItemController extends Controller
                 'latitude' => 'required|string',
                 'longitude' => 'required|string'
             ]),
-            'explorer_id' => $explorer->id
+            'user_id' => $user->id
         ]);
 
 

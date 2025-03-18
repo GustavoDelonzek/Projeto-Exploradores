@@ -13,19 +13,19 @@ class Trade extends Model
     use HasFactory;
 
     protected $fillable = [
-        'explorer_to_id',
-        'explorer_for_id',
+        'user_to_id',
+        'user_for_id',
         'status'
     ];
 
-    public function explorer_to():BelongsTo
+    public function user_to():BelongsTo
     {
-        return $this->belongsTo(Explorer::class, 'explorer_to_id');
+        return $this->belongsTo(User::class, 'user_to_id');
     }
 
-    public function explorer_for():BelongsTo
+    public function user_for():BelongsTo
     {
-        return $this->belongsTo(Explorer::class, 'explorer_for_id');
+        return $this->belongsTo(User::class, 'user_for_id');
     }
 
     public function tradeItem(): HasMany

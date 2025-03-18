@@ -12,13 +12,13 @@ class Location extends Model
     use HasFactory;
 
     protected $fillable = [
-        'explorer_id',
+        'user_id',
         'latitude',
         'longitude'
     ];
 
     public function user(): BelongsTo{
-        return $this->BelongsTo(Explorer::class);
+        return $this->BelongsTo(User::class);
     }
 
 
